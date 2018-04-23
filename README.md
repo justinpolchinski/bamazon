@@ -1,6 +1,6 @@
 # bamazon
-#node.js with MySQL Database
+# node.js with MySQL Database
 
-##bamazonCustomer.js
+## bamazonCustomer.js
 
-###Need npm requirements are "mysql" and "inquirer"
+### Need npm requirements are "mysql" and "inquirer"
