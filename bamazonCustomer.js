@@ -22,7 +22,6 @@ var connection = mysql.createConnection({
   connection.connect(function(err) {
     if (err) throw err;
     productChoices();
-    //runSearch();
   });
   function runSearch(){
       inquirer.prompt({
@@ -35,7 +34,7 @@ var connection = mysql.createConnection({
             connection.query(query, function(err, res) {
             if (err) throw err;
             for (var i = 0; i < res.length; i++) {
-                if(answer.name == "Exit"){connection.end();}
+                if(answer.name == "Exit"){connection.end();break}
                 if (res[i].product_name == answer.name){
                     inStock = res[i].stock_quantity;
                     productPrice = res[i].price;
@@ -67,7 +66,7 @@ function quantityCheck(){
         message: "How many would you like?",
     }).then(function(answer1){
                 orderQuantity = answer1.quantity;
-                if(inStock>orderQuantity){
+                if(inStock>=orderQuantity){
                     console.log("====================="); 
                     console.log("Thank you for your business!");
                     newStockQuantity = inStock-orderQuantity;
@@ -92,7 +91,7 @@ function updateProduct() {
       function(err,res) {
         if (err) throw err;
         purchaseCost = orderQuantity * productPrice;
-        console.log("Order Cost: $"+purchaseCost + " for " + orderQuantity + " " + currentProduct);
+        console.log("Order Cost: $"+purchaseCost.toFixed(2) + " for " + orderQuantity + " " + currentProduct);
         console.log("=====================");
         console.log("New Stock Quantity: " + newStockQuantity + " for " + currentProduct);
         productChoices();
